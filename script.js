@@ -12,7 +12,7 @@ let startTime;
 let questionText = "";
 
 // Load and display question
-fetch("./texts.json")
+fetch("texts.json")
   .then((res) => res.json())
   .then((data) => {
     questionText = data[Math.floor(Math.random() * data.length)];
@@ -38,18 +38,27 @@ const typeController = (e) => {
     return;
   }
 
-  userText += newLetter;
+  userText += newLetter; //=befor +
 
   const newLetterCorrect = validate(newLetter);
 
   if (newLetterCorrect) {
-    display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`;
+    display.innerHTML += `<span class="green">${newLetter === " " ? "▪" : newLetter}</span>`; //=befor +
   } else {
-    display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`;
+    display.innerHTML += `<span class="red">${newLetter === " " ? "▪" : newLetter}</span>`; //=befor +
   }
+   //error count
+  //  let parent = document.getElementById("display");
+  //  let nodesSameClass = parent.getElementsByClassName("red");
+  //  console.log(nodesSameClass.length);
+ 
 
   // check if given question text is equal to user typed text
-  if (questionText === userText) {
+  if (questionText.length === userText.length) {
+    //error count
+    let errorKey = document.querySelectorAll('#display .red').length;
+    // console.log(errorC);
+    errorCount = errorKey
     gameOver();
   }
 };
@@ -77,8 +86,9 @@ const gameOver = () => {
   display.innerHTML = "";
   // make it inactive
   display.classList.add("inactive");
-  // show result
-  resultModal.innerHTML += `
+ 
+  // show result +
+  resultModal.innerHTML = `
     <h1>Finished!</h1>
     <p>You took: <span class="bold">${timeTaken}</span> seconds</p>
     <p>You made <span class="bold red">${errorCount}</span> mistakes</p>
@@ -107,14 +117,15 @@ const start = () => {
   countdownOverlay.style.display = "flex";
 
   const startCountdown = setInterval(() => {
-    countdownOverlay.innerHTML = '<h1>${count}</h1>';
+    countdownOverlay.innerHTML = `<h1>${count}</h1>`;
 
     // finished timer
-    if (count == 0) {
+    if (count === 0) {
       // -------------- START TYPING -----------------
-      document.addEventListener("keydown", typeController);
-      countdownOverlay.style.display = "flex";
-      display.classList.remove("inactive");
+     
+      document.addEventListener('keydown', typeController);
+      countdownOverlay.style.display = "none";
+      display.classList.remove('inactive');
 
       clearInterval(startCountdown);
       startTime = new Date().getTime();
@@ -124,7 +135,7 @@ const start = () => {
 };
 
 // START Countdown
-startBtn.addEventListener("click", start);
+startBtn.addEventListener('click', start);
 
 // If history exists, show it
 displayHistory();
@@ -132,7 +143,7 @@ displayHistory();
 // Show typing time spent
 setInterval(() => {
   const currentTime = new Date().getTime();
-  const timeSpent = (currentTime - startTime) / 1000;
+  const timeSpent = ((currentTime - startTime) / 1000).toFixed(2);
 
 
   document.getElementById("show-time").innerHTML = `${startTime ? timeSpent : 0} seconds`;

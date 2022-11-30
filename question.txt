@@ -1,0 +1,12 @@
+1. strat button fixed
+2. count ${count}
+3. still 0 fix
+4. finished popup center
+5. history => pc 3 cloume, mobile list
+6. secount timer intiger number
+7. error count
+
+8. localStorage vs sessionStorage
+9. golobal scop vs private scop
+10. event loop
+11. how to get much way undifine.
